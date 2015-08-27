@@ -27,7 +27,27 @@
       $("body").width() * Math.random(),
       Math.random() * 1000
     );
+    dancers.push(dancer);
     $('body').append(dancer.$node);
   });
+
+
+ // LineUp button
+ $(".lineUpDancers").on("click", function(event) {
+  debugger;
+  var height = 100;
+  for (var i = 0; i < dancers.length; i++) {
+    var left = (1200 / dancers.length) * i ;
+    dancers[i].liningUp = true;
+    dancers[i].lineUp(height, left);
+  }
+
+ });
+  // simple heigth = 100
+  // start a for loop over the dancers array 
+    // it is already filled for you
+    // use the index as a left property 
+    // dancers[i].setPosition(height, i + 10)
+  //  close for loop
 });
 
