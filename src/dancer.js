@@ -18,7 +18,14 @@ makeDancer.prototype.step = function(){
   // it just schedules the next step
   // var boundStep = this.step.bind(makeBlinkyDancer);
   var that = this;
-  setTimeout(function(){ that.step();}/*boundStep*/, that.timeBetweenSteps);
+  //var boundStep = this.step;
+  setTimeout(function() {that.step();}, that.timeBetweenSteps)
+  // setTimeout.call(this, function(){
+  //   // debugger;
+  //   console.log('set timeout queued', this);
+  //  this.step; 
+  // }, this.timeBetweenSteps);
+  //setTimeout(this.step.bind(this)/*boundStep*/, this.timeBetweenSteps);
 };
 
 makeDancer.prototype.setPosition = function(){
