@@ -6,43 +6,34 @@ var makeDancer = function(top, left, timeBetweenSteps){
   this.timeBetweenSteps = timeBetweenSteps;
   this.liningUp = false;
   this.setPosition(top, left);
+  this.top = top;
+  this.left = left;
 };
 
 makeDancer.prototype.step = function(){
-  // the basic dancer doesn't do anything interesting at all on each step,
-  // it just schedules the next step
-  // var boundStep = this.step.bind(makeBlinkyDancer);
   var that = this;
-  //var boundStep = this.step;
+
   if (!this.liningUp) {
-    setTimeout(function() {that.step();}, that.timeBetweenSteps)
+    setTimeout(function() {that.step();}, that.timeBetweenSteps);
   }
-  // setTimeout.call(this, function(){
-  //   // debugger;
-  //   console.log('set timeout queued', this);
-  //  this.step; 
-  // }, this.timeBetweenSteps);
-  //setTimeout(this.step.bind(this)/*boundStep*/, this.timeBetweenSteps);
 };
 
 makeDancer.prototype.setPosition = function(top, left){
-  // Use css top and left properties to position our <span> tag
-  // where it belongs on the page. See http://api.jquery.com/css/
-  //
+
   var styleSettings = {
     top: top,
     left: left
   };
+  this.top = top;
+  this.left = left;
   this.$node.css(styleSettings);
 };
 
 makeDancer.prototype.lineUp = function(top, left) {
-
+  this.$node.stop();
   this.$node.animate({
     top: top,
     left: left
   }, 100);
-}
+};
 
-  // now that we have defined the dancer object, we can start setting up important parts of it by calling the methods we wrote
-  // this one sets the position to some random default point within the body

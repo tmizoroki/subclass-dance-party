@@ -25,7 +25,7 @@
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
       $("body").width() * Math.random(),
-      Math.random() * 1000
+      Math.random() * 5000
     );
     dancers.push(dancer);
     $('body').append(dancer.$node);
@@ -34,11 +34,10 @@
 
  // LineUp button
  $(".lineUpDancers").on("click", function(event) {
-  debugger;
   var height = 100;
-  for (var i = 0; i < dancers.length; i++) {
-    var left = (1200 / dancers.length) * i ;
+  for (var i = 0; i <= dancers.length; i++) {
     dancers[i].liningUp = true;
+    var left = (1200 / dancers.length) * i ;
     dancers[i].lineUp(height, left);
   }
 

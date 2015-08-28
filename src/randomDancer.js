@@ -1,16 +1,19 @@
 var makeRandomDancer = function(top, left, timeBetweenSteps) {
-makeDancer.call(this, top, left, timeBetweenSteps);
-
-  // we plan to overwrite the step function below, but we still want the superclass step behavior to work,
-  // so we must keep a copy of the old version of this function
-  //this.oldStep = makeDancer.prototype.step;
-  // debugger;
-  this.$node.append('<img src="http://tinyurl.com/p77txzr" alt="Smiley face" height="400" width="400">')
-  this.$node.css('border','10px solid #124352');
-
+  
+  makeDancer.call(this, top, left, timeBetweenSteps);
+  this.value = 'trump';
+  this.$node.append('<img src="src/trump.png" alt="Smiley face" height="150" width="150">')
+  this.$node.css('border', '0');
+  var boundFire = this.fire.bind(this);
+  this.$node.on('click', function(event) {
+    dancers.forEach(function(dancer) {
+      if (dancer.value === 'hillary') {
+        boundFire(dancer.$node.offset().top, dancer.$node.offset().left, dancer);
+      }
+    });
+  });
 
   this.step();
-
 };
 makeRandomDancer.prototype = Object.create(makeDancer.prototype);
 makeRandomDancer.prototype.constructor = makeRandomDancer;
@@ -18,17 +21,34 @@ makeRandomDancer.prototype.random = function() {
   return Math.random() * 1000;
 };
 makeRandomDancer.prototype.step = function(){
-  // call the old version of step at the beginning of any call to this new version of step
-  //this.oldStep();
-  //debugger;
-  makeDancer.prototype.step.call(this);
-  //this.oldStep();
-  // toggle() is a jQuery method to show/hide the <span> tag.
-  //console.log(this.$node);
-  this.$node.animate({
+
+  if(!this.liningUp) {
+    makeDancer.prototype.step.call(this);
+    this.$node.animate({
     top: this.random(),
     left: this.random()
-  }, 1000);
-  // See http://api.jquery.com/category/effects/ for this and
-  // other effects you can use on a jQuery-wrapped html tag.
+    }, 5000);
+  }
+
 };
+makeRandomDancer.prototype.fire = function(hillaryTop, hillaryLeft, hillary) {
+  var dist = Math.sqrt(Math.abs(Math.pow((Math.abs(hillaryTop - this.$node.offset().top)), 2) - Math.pow(Math.abs(hillaryLeft - this.$node.offset().left), 2)));
+  var that = this;
+  if (dist < 100) {
+    if ($('.fired').length === 0) {
+      this.$node.append('<img class="fired" src="src/fired.gif" alt="You\'re fired" height="109" width="450">');
+      setTimeout(function() {
+      that.$node.html('<img src="src/trump.png" alt="Smiley face" height="150" width="150">');
+      hillary.$node.html('<img src="src/hillaryclinton.png" alt="hillary" height="150" width="150">');
+      hillary.$node.append('<img class="flame" src="src/flame.gif" alt="burn" height="150" width="150" right="-150">');
+      hillary.fire = true;
+      }, 800);
+      // var win = dancers.reduce(function(memo, dancer) {
+      //   return dancer.value === 'hillary' && dancer.fire === true && memo;
+      // }, true);
+      // if (win) {
+      //   console.log('WIN');
+      // }
+    }
+  }
+}
