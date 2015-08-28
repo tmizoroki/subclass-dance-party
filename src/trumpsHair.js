@@ -3,9 +3,9 @@ var MakeTrumpsHair = function(top, left, timeBetweenSteps) {
 
   this.$node.html('<img class="combover" src="src/combover.png" alt="Trump\'s hair" height="147" width="324">')
   this.value = 'hair';
-  this.$node.on('click', function(event) {
-    this.rotate();
-  });
+  // this.$node.on('click', function(event) {
+  //   this.rotate();
+  // });
   this.step();
 };
 
