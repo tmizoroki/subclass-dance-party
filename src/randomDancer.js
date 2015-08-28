@@ -4,11 +4,12 @@ var makeRandomDancer = function(top, left, timeBetweenSteps) {
   this.value = 'trump';
   this.$node.append('<img src="src/trump.png" alt="Smiley face" height="150" width="150">')
   this.$node.css('border', '0');
-  var boundFire = this.fire.bind(this);
+  //var boundFire = this.fire.bind(this);
+  var that = this;
   this.$node.on('click', function(event) {
     dancers.forEach(function(dancer) {
       if (dancer.value === 'hillary') {
-        boundFire(dancer.$node.offset().top, dancer.$node.offset().left, dancer);
+        that.fire(dancer.$node.offset().top, dancer.$node.offset().left, dancer);
       }
     });
   });

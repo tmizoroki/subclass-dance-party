@@ -41,3 +41,7 @@ body, a:link, a:visited, a:active{
   width:100%;
   text-align: center;
 }
+
+.combover {
+  z-index: -1;
+}
