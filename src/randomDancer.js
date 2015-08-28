@@ -4,15 +4,7 @@ var makeRandomDancer = function(top, left, timeBetweenSteps) {
   this.value = 'trump';
   this.$node.append('<img src="src/trump.png" alt="Smiley face" height="150" width="150">')
   this.$node.css('border', '0');
-  //var boundFire = this.fire.bind(this);
-  var that = this;
-  this.$node.on('click', function(event) {
-    dancers.forEach(function(dancer) {
-      if (dancer.value === 'hillary') {
-        that.fire(dancer.$node.offset().top, dancer.$node.offset().left, dancer);
-      }
-    });
-  });
+  this.fireClick();
 
   this.step();
 };
@@ -22,15 +14,13 @@ makeRandomDancer.prototype.random = function() {
   return Math.random() * 1000;
 };
 makeRandomDancer.prototype.step = function(){
-
-  if(!this.liningUp) {
-    makeDancer.prototype.step.call(this);
-    this.$node.animate({
+  
+  makeDancer.prototype.step.call(this);
+  this.$node.animate({
     top: this.random(),
     left: this.random()
-    }, 5000);
-  }
-
+  }, 5000);
+  
 };
 makeRandomDancer.prototype.fire = function(hillaryTop, hillaryLeft, hillary) {
   var dist = Math.sqrt(Math.abs(Math.pow((Math.abs(hillaryTop - this.$node.offset().top)), 2) - Math.pow(Math.abs(hillaryLeft - this.$node.offset().left), 2)));
@@ -44,12 +34,17 @@ makeRandomDancer.prototype.fire = function(hillaryTop, hillaryLeft, hillary) {
       hillary.$node.append('<img class="flame" src="src/flame.gif" alt="burn" height="150" width="150" right="-150">');
       hillary.fire = true;
       }, 800);
-      // var win = dancers.reduce(function(memo, dancer) {
-      //   return dancer.value === 'hillary' && dancer.fire === true && memo;
-      // }, true);
-      // if (win) {
-      //   console.log('WIN');
-      // }
     }
   }
+}
+
+makeRandomDancer.prototype.fireClick = function() {
+  var that = this;
+  this.$node.on('click', function(event) {
+    dancers.forEach(function(dancer) {
+      if (dancer.value === 'hillary') {
+        that.fire(dancer.$node.offset().top, dancer.$node.offset().left, dancer);
+      }
+    });
+  });
 }

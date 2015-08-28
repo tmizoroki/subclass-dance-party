@@ -2,25 +2,10 @@
   window.dancers = [];
 
   $(".addDancerButton").on("click", function(event){
-    /* This function sets up the click handlers for the create-dancer
-     * buttons on dancefloor.html. You should only need to make one small change to it.
-     * As long as the "data-dancer-maker-function-name" attribute of a
-     * class="addDancerButton" DOM node matches one of the names of the
-     * maker functions available in the global scope, clicking that node
-     * will call the function to make the dancer.
-     */
 
-    /* dancerMakerFunctionName is a string which must match
-     * one of the dancer maker functions available in global scope.
-     * A new object of the given type will be created and added
-     * to the stage.
-     */
     var dancerMakerFunctionName = $(this).data("dancer-maker-function-name");
 
-    // get the maker function for the kind of dancer we're supposed to make
     var dancerMakerFunction = window[dancerMakerFunctionName];
-
-    // make a dancer with a random position
 
     var dancer = new dancerMakerFunction(
       $("body").height() * Math.random(),
@@ -31,22 +16,14 @@
     $('body').append(dancer.$node);
   });
 
-
- // LineUp button
  $(".lineUpDancers").on("click", function(event) {
   var height = 100;
-  for (var i = 0; i <= dancers.length; i++) {
-    dancers[i].liningUp = true;
-    var left = (1200 / dancers.length) * i ;
-    dancers[i].lineUp(height, left);
+  for (var i = 0; i < dancers.length; i++) {
+    dancers[i].$node.finish();
+    dancers[i].$node.animate({
+      top: "200px"
+    }, 'fast', 'swing' );
   }
-
  });
-  // simple heigth = 100
-  // start a for loop over the dancers array 
-    // it is already filled for you
-    // use the index as a left property 
-    // dancers[i].setPosition(height, i + 10)
-  //  close for loop
 });
 

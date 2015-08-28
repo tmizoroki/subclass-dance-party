@@ -15,14 +15,9 @@ makeDrunkDancer.prototype.wobble = function () {
   return Math.random() * 1000;
 }
 makeDrunkDancer.prototype.step = function(){
-
-  if(!this.liningUp) {
-    makeDancer.prototype.step.call(this);
-  }
-
+  makeDancer.prototype.step.call(this);
   this.$node.animate({
     top: this.wobble(),
     left: this.wobble()
   }, 10000);
-
 };
